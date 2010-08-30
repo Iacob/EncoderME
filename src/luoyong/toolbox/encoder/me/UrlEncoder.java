@@ -20,12 +20,43 @@ public class UrlEncoder {
 
       int arrayLength = bytes.length;
 
+      byte currentByte = 0;
       int currentMath = 0;
       int currentCharValue = 0;
 
       for (int i=0; i<arrayLength; i++) {
 
-         currentMath = bytes[i] & 0xFF;
+         currentByte = bytes[i];
+         currentMath = currentByte & 0xFF;
+
+         if ((currentByte >= 'a') && (currentByte <= 'z')) {
+            result.append((char)currentByte);
+            continue;
+         }else if ((currentByte >= 'A') && (currentByte <= 'Z')) {
+            result.append((char)currentByte);
+            continue;
+         }else if ((currentByte >= '0') && (currentByte <= '9')) {
+            result.append((char)currentByte);
+            continue;
+         }else if (currentByte == ' ') {
+            result.append('+');
+            continue;
+         }else {
+            switch(currentByte) {
+               case '.':
+                  result.append((char)currentByte);
+                  continue;
+               case '-':
+                  result.append((char)currentByte);
+                  continue;
+               case '*':
+                  result.append((char)currentByte);
+                  continue;
+               case '_':
+                  result.append((char)currentByte);
+                  continue;
+            }
+         }
 
          result.append('%');
          
